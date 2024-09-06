@@ -1,5 +1,5 @@
 package com.workoutapp.dto;
 
-public class UserDTO {
+public class AuthDTO {
 
 }

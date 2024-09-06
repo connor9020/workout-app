@@ -1,10 +1,9 @@
 package com.workoutapp.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
 
 @Entity
-public class WorkoutPlan {
+public class Exercises {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,14 +12,8 @@ public class WorkoutPlan {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    private LocalDate date;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "workout_type_id") // Direct association with WorkoutType
-    private WorkoutType workoutType;
+    @JoinColumn(name = "workout_type_id")
+    private WorkoutType workoutType; // Reference to the WorkoutType it belongs to
 
     // Getters and Setters
 
@@ -38,22 +31,6 @@ public class WorkoutPlan {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 
     public WorkoutType getWorkoutType() {

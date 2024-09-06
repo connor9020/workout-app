@@ -1,5 +1,5 @@
 package com.workoutapp.dto;
 
-public class ScheduleDTO {
+public class CustomWorkoutDTO {
 
 }
