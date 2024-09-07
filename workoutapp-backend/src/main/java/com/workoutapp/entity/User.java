@@ -13,6 +13,9 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String username;
+    
+    @Column(nullable = false)
+    private String name;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -29,11 +32,12 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password, Set<String> roles) {
+    public User(String username, String email, String password, Set<String> roles, String name) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.roles = roles;
+        this.name = name;
     }
 
     // Getters and Setters
@@ -53,7 +57,15 @@ public class User {
         this.username = username;
     }
 
-    public String getEmail() {
+    public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
         return email;
     }
 
