@@ -60,16 +60,16 @@ public class ProfileService {
     }
     
     // Delete the user by username
-    public void deleteUser(String username) {
-        // Use Optional to safely retrieve the user
-        Optional<User> userOptional = userRepository.findByUsername(username);
-        User user = userOptional.orElseThrow(() -> new RuntimeException("User not found"));
-
-        // Delete all workout plans associated with the user
-        workoutPlanRepository.deleteByUser(user);
-
-        // Delete the user
-        userRepository.delete(user);
-    }
+//    public void deleteUser(String username) {
+//        // Use Optional to safely retrieve the user
+//        Optional<User> userOptional = userRepository.findByUsername(username);
+//        User user = userOptional.orElseThrow(() -> new RuntimeException("User not found"));
+//
+//        // Delete all workout plans associated with the user
+//        workoutPlanRepository.deleteByUser(user);
+//
+//        // Delete the user
+//        userRepository.delete(user);
+//    }
 }
 

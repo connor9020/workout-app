@@ -43,10 +43,10 @@ public class ProfileController {
     }
     
     // DELETE request to delete profile/user
-    @DeleteMapping("/profile/delete")
-    public ResponseEntity<?> deleteUser(@RequestBody Map<String, String> body) {
-        String username = body.get("username");
-        profileService.deleteUser(username);
-        return ResponseEntity.ok("User successfully deleted");
-    }
+//    @DeleteMapping("/profile/delete")
+//    public ResponseEntity<?> deleteUser(@RequestBody Map<String, String> body) {
+//        String username = body.get("username");
+//        profileService.deleteUser(username);
+//        return ResponseEntity.ok("User successfully deleted");
+//    }
 }
