@@ -6,6 +6,7 @@ import com.workoutapp.service.ProfileService;
 import com.workoutapp.service.WorkoutPlanService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @RestController
 public class ProfileController {
@@ -38,5 +40,13 @@ public class ProfileController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();  // Get logged-in user's username
         ProfileDTO updatedProfile = profileService.updateProfile(username, profileDTO);  // Call service to update profile
         return ResponseEntity.ok(updatedProfile);  // Return updated profile
+    }
+    
+    // DELETE request to delete profile/user
+    @DeleteMapping("/profile/delete")
+    public ResponseEntity<?> deleteUser(@RequestBody Map<String, String> body) {
+        String username = body.get("username");
+        profileService.deleteUser(username);
+        return ResponseEntity.ok("User successfully deleted");
     }
 }

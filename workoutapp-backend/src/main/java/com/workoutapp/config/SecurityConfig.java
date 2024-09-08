@@ -6,6 +6,7 @@ import com.workoutapp.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,16 +32,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()
+            // Disable CSRF (Cross-Site Request Forgery) as this is stateless API security (JWT)
+            .csrf(csrf -> csrf.disable())
+            
+            // Configure authorization rules
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()  // Allow login and register without authentication
+                .requestMatchers(HttpMethod.DELETE, "/profile/delete").hasRole("USER") // Allow DELETE request for ROLE_USER
+                .anyRequest().authenticated()  // All other endpoints require authentication
             )
+            
+            // Ensure session is stateless (JWT usage)
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             );
-
-        // Add JWT filter before the UsernamePasswordAuthenticationFilter
+        
+        // Add JWT filter before UsernamePasswordAuthenticationFilter
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -58,3 +65,5 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 }
+
+

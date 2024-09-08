@@ -5,6 +5,7 @@ import com.workoutapp.service.AuthService;
 import com.workoutapp.config.JwtUtil;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,16 +38,22 @@ public class AuthController {
         try {
             String username = loginRequest.get("username");
             String password = loginRequest.get("password");
-            
+
             System.out.println("Login request received: " + username + ", " + password);
+
+            // Fetch the user directly as Optional<User>
+            Optional<User> optionalUser = userService.findByUsername(username);
             
-            // Log the user details before authentication
-            User user = userService.findByUsername(username);
+            // Throw exception if user is not found
+            User user = optionalUser.orElseThrow(() -> new RuntimeException("User not found"));
+            
             System.out.println("User found: " + user.getUsername() + ", Password: " + user.getPassword());
-            
+
+            // Authenticate the user
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password));
-            
+
+            // Generate JWT token
             String token = jwtUtil.generateToken(username);
             return ResponseEntity.ok().body("Bearer " + token);
         } catch (AuthenticationException e) {
@@ -56,6 +63,5 @@ public class AuthController {
             System.out.println("Error: " + e.getMessage());
             return ResponseEntity.status(500).body("Server error");
         }
-
     }
 }

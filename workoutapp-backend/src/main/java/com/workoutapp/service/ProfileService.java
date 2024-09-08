@@ -26,11 +26,9 @@ public class ProfileService {
 
     // Get the current user's profile
     public ProfileDTO getProfile(String username) {
-        // Fetch the user directly
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new RuntimeException("User not found");
-        }
+        // Use Optional to safely handle the user retrieval
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        User user = userOptional.orElseThrow(() -> new RuntimeException("User not found"));
 
         // Get today's workout plan (assuming such logic exists in WorkoutPlanRepository)
         WorkoutPlan todaysWorkout = workoutPlanRepository.findWorkoutPlanByUserUsernameAndDate(username, LocalDate.now()).orElse(null);
@@ -39,28 +37,39 @@ public class ProfileService {
         return new ProfileDTO(user.getId(), user.getUsername(), user.getEmail(), user.getName(), null, todaysWorkout);
     }
     
+    // Update the user's profile
     public ProfileDTO updateProfile(String username, ProfileDTO profileDTO) {
-        // Retrieve the user using userRepository directly (not Optional)
-        User user = userRepository.findByUsername(username);
-        
-        // If user is null, throw an exception
-        if (user == null) {
-            throw new RuntimeException("User not found");
-        }
+        // Use Optional to safely retrieve the user
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        User user = userOptional.orElseThrow(() -> new RuntimeException("User not found"));
 
         // Update the user object with new profile data
         user.setName(profileDTO.getName());
         user.setEmail(profileDTO.getEmail());
-        user.setPassword(passwordEncoder.encode(profileDTO.getPassword()));  // Ensure password is encoded
+        
+        // Encode and set the password only if provided
+        if (profileDTO.getPassword() != null && !profileDTO.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(profileDTO.getPassword()));
+        }
 
         // Save the updated user object
         userRepository.save(user);
 
         // Return the updated user as a ProfileDTO
-        return new ProfileDTO(user.getId(), user.getUsername(), user.getEmail(), user.getName(), user.getPassword(), null);
+        return new ProfileDTO(user.getId(), user.getUsername(), user.getEmail(), user.getName(), null, null);
     }
+    
+    // Delete the user by username
+    public void deleteUser(String username) {
+        // Use Optional to safely retrieve the user
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        User user = userOptional.orElseThrow(() -> new RuntimeException("User not found"));
 
+        // Delete all workout plans associated with the user
+        workoutPlanRepository.deleteByUser(user);
 
-
-
+        // Delete the user
+        userRepository.delete(user);
+    }
 }
+
