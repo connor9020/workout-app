@@ -1,6 +1,7 @@
 package com.workoutapp.filter;
 
 import com.workoutapp.config.JwtUtil;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -38,7 +38,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         // Check if the Authorization header is present and starts with "Bearer "
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);
-            username = jwtUtil.extractUsername(jwt);
+
+            try {
+                username = jwtUtil.extractUsername(jwt);
+            } catch (ExpiredJwtException e) {
+                // Handle expired token specifically
+                System.out.println("JWT token expired for user: " + e.getClaims().getSubject());
+            } catch (Exception e) {
+                // Handle other JWT parsing exceptions
+                System.out.println("Invalid JWT token");
+            }
         }
 
         // Validate the token and set the authentication context
@@ -58,12 +67,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 System.out.println("Authorities: " + userDetails.getAuthorities());
             } else {
                 System.out.println("Invalid JWT token for user: " + username);
-                
             }
         }
-
 
         chain.doFilter(request, response);
     }
 }
+
 

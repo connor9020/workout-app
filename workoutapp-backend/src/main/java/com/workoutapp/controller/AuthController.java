@@ -53,7 +53,7 @@ public class AuthController {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password));
 
-            // Generate JWT token
+            // Generate (JWT) JSON web token
             String token = jwtUtil.generateToken(username);
             return ResponseEntity.ok().body("Bearer " + token);
         } catch (AuthenticationException e) {

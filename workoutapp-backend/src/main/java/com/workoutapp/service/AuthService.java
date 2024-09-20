@@ -24,7 +24,7 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         // Set roles without the "ROLE_" prefix (e.g., just "USER")
-        user.setRoles(Set.of("ROLE_USER"));  // Assuming roles are being set manually
+        user.setRoles(Set.of("USER"));  // Assuming roles are being set manually
 
         return userRepository.save(user);
     }

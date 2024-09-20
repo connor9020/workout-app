@@ -375,6 +375,7 @@
             <service name="CodeDeploy">https://codedeploy.ap-southeast-5.amazonaws.com</service>
             <service name="DynamoDB">https://dynamodb.ap-southeast-5.amazonaws.com</service>
             <service name="DynamoDBStream">https://streams.dynamodb.ap-southeast-5.amazonaws.com</service>
+            <service name="EC2">https://ec2.ap-southeast-5.amazonaws.com</service>
             <service name="ECR" authregion="ap-southeast-5">https://api.ecr.ap-southeast-5.amazonaws.com</service>
             <service name="ECS">https://ecs.ap-southeast-5.amazonaws.com</service>
             <service name="ELB">https://elasticloadbalancing.ap-southeast-5.amazonaws.com</service>
