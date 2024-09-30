@@ -1,21 +1,22 @@
 <h3>Welcome to your Workout Dashboard!</h3>
 <p>Calendar for your workout plan this week</p>
-<div class>="quick-workouts">
-    <h4>Quick Workouts: Pick a type!</h4>
-    <div class="btn-group" role="group">
-        <button *ngFor="let workoutType of workoutTypes"
-        class="btn btn-primary
-        (click)="getExercises(workoutType.name)>
-        {{ workoutType.name }}
-        </button>
-    </div>
+
+<div class="quick-workouts">
+  <h4>Quick Workouts: Pick a type!</h4>
+  <div class="btn-group" role="group">
+    <button *ngFor="let workoutType of workoutTypes"
+            class="btn btn-primary"
+            (click)="getExercises(workoutType.name)">
+      {{ workoutType.name }}
+    </button>
+  </div>
 </div>
 
 <div *ngIf="exercises.length > 0">
-    <h3> Exercises:</h3>
-    <ul>
-        <li * ngFor="let exercise of exercises"> {{ exercise.name }}</li>
-    </ul>
+  <h3>Exercises:</h3>
+  <ul>
+    <li *ngFor="let exercise of exercises">{{ exercise.name }}</li>
+  </ul>
 </div>
 
-<p>Think ahead! Schedule a long term workout plan!</p>
+<p>Think ahead! Schedule a long-term workout plan!</p>
