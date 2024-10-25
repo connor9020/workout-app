@@ -14,8 +14,14 @@ public class ExercisesService {
         this.exercisesRepository = exercisesRepository;
     }
 
-    public List<Exercises> getExercisesByWorkoutType(Long workoutTypeId) {
-        // Assuming a method is added to find exercises by workout type
-        return exercisesRepository.findAll(); // Replace with actual logic
+    // Fetch exercises by workout type name (or ID if using IDs)
+    public List<Exercises> getExercisesByWorkoutType(String workoutTypeName) {
+        // Assuming findExercisesByWorkoutTypeName method exists in ExercisesRepository
+        return exercisesRepository.findByWorkoutType_TypeName(workoutTypeName);
+    }
+
+    // Save a new exercise
+    public Exercises saveExercise(Exercises exercise) {
+        return exercisesRepository.save(exercise);
     }
 }

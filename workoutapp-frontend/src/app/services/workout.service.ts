@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { WorkoutType } from '../models/workoutType.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +11,8 @@ export class WorkoutService {
 
   constructor(private http: HttpClient) {}
 
-  getWorkoutTypes(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/workout-types`);
+  getWorkoutTypes(): Observable<WorkoutType[]> {
+    return this.http.get<WorkoutType[]>(`${this.apiUrl}/workout-types`);
   }
 
   getExercisesByType(workoutTypeName: string): Observable<any> {

@@ -1,0 +1,10 @@
+.btn {
+    color: #ffffff !important; /* Force white text color */
+    font-size: 16px; /* Set text to a readable size */
+  }
+  
+  .jumbotron {
+    background-color: #f8f9fa; /* Light gray for contrast */
+    padding: 2rem; /* Adds spacing within the jumbotron */
+  }
+  
