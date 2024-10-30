@@ -3,6 +3,8 @@ package com.workoutapp.entity;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class WorkoutType {
 
@@ -13,6 +15,7 @@ public class WorkoutType {
     private String typeName;
 
     @OneToMany(mappedBy = "workoutType", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Exercises> exercises; // Exercises associated with this type
 
     // Getters and Setters

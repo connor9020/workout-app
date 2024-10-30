@@ -8,29 +8,35 @@ import { WorkoutService } from '../../services/workout.service';
 export class WorkoutTypeComponent implements OnInit {
   workoutTypes: any[] = [];
   exercises: any[] = [];
+  selectedWorkoutType: string = ''; // Track the selected workout type
 
   constructor(private workoutService: WorkoutService) {}
 
   ngOnInit(): void {
-    // Load workout types on component initialization
     this.loadWorkoutTypes();
   }
 
-  // Method to fetch workout types from the back-end
   loadWorkoutTypes() {
-    this.workoutService.getWorkoutTypes().subscribe((data: any) => {
-      this.workoutTypes = data;
-    }, error => {
-      console.error('Failed to load workout types', error);
-    });
+    this.workoutService.getWorkoutTypes().subscribe(
+      (data: any) => {
+        this.workoutTypes = data;
+      },
+      error => {
+        console.error('Failed to load workout types', error);
+      }
+    );
   }
 
-  // Fetch exercises for a selected workout type
   getExercises(type: string) {
-    this.workoutService.getExercisesByType(type).subscribe((data: any) => {
-      this.exercises = data;
-    }, error => {
-      console.error('Failed to fetch exercises', error);
-    });
+    this.selectedWorkoutType = type; // Set the selected workout type
+    this.workoutService.getExercisesByType(type).subscribe(
+      (data: any) => {
+        this.exercises = data;
+      },
+      error => {
+        console.error('Failed to fetch exercises', error);
+      }
+    );
   }
 }
+

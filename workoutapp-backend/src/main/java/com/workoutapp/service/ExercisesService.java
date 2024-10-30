@@ -14,6 +14,10 @@ public class ExercisesService {
         this.exercisesRepository = exercisesRepository;
     }
 
+    public List<Exercises> getAllExercises() {
+        return exercisesRepository.findAll();
+    }
+    
     // Fetch exercises by workout type name (or ID if using IDs)
     public List<Exercises> getExercisesByWorkoutType(String workoutTypeName) {
         // Assuming findExercisesByWorkoutTypeName method exists in ExercisesRepository
