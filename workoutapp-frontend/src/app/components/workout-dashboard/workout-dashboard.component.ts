@@ -25,11 +25,15 @@ export class WorkoutDashboardComponent implements OnInit {
   }
 
   getExercises(type: string) {
-    this.workoutService.getExercisesByType(type).subscribe((data: any) => {
-      this.exercises = data;
-    }, error => {
-      console.error('Failed to fetch exercises', error);
-    });
+    this.workoutService.getExercisesByType({ workoutType: type }).subscribe(
+      (data: any) => {
+        this.exercises = data;
+      },
+      (error) => {
+        console.error('Failed to fetch exercises', error);
+      }
+    );
   }
+  
 }
 

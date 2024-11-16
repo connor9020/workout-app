@@ -29,7 +29,7 @@ export class WorkoutTypeComponent implements OnInit {
 
   getExercises(type: string) {
     this.selectedWorkoutType = type; // Set the selected workout type
-    this.workoutService.getExercisesByType(type).subscribe(
+    this.workoutService.getExercisesByType({ workoutType: type }).subscribe(
       (data: any) => {
         this.exercises = data;
       },

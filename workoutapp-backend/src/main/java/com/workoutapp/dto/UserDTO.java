@@ -1,30 +1,38 @@
 package com.workoutapp.dto;
 
+import com.workoutapp.entity.User;
 import com.workoutapp.entity.WorkoutPlan;
 
-public class ProfileDTO {
+import java.util.Set;
 
+public class UserDTO {
     private Long id;
     private String username;
+    private String name;
     private String email;
-    private String name;  
     private String password;
-    private WorkoutPlan currentWorkout; // Adding currentWorkout field
+    private Set<String> roles;
+    private WorkoutPlan currentWorkout;
 
-    // Constructors
-    public ProfileDTO() {}
-
-    public ProfileDTO(Long id, String username, String email, String name, String password, WorkoutPlan currentWorkout) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.name = name;
-        this.password = password;
+    // Constructor to map fields from User entity
+    public UserDTO(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.roles = user.getRoles();
+    }
+    
+    public UserDTO(User user, WorkoutPlan currentWorkout) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.email = user.getEmail();
+        this.name = user.getName();
+        this.password = user.getPassword();
         this.currentWorkout = currentWorkout;
     }
 
-    // Getters and Setters
-
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -41,14 +49,6 @@ public class ProfileDTO {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getName() {
         return name;
     }
@@ -57,20 +57,39 @@ public class ProfileDTO {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public WorkoutPlan getCurrentWorkout() {  // Getter for currentWorkout
-        return currentWorkout;
+    public Set<String> getRoles() {
+        return roles;
     }
 
-    public void setCurrentWorkout(WorkoutPlan currentWorkout) {  // Setter for currentWorkout
-        this.currentWorkout = currentWorkout;
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
     }
+
+	public WorkoutPlan getCurrentWorkout() {
+		return currentWorkout;
+	}
+
+	public void setCurrentWorkout(WorkoutPlan currentWorkout) {
+		this.currentWorkout = currentWorkout;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
+    
+    
 }
-

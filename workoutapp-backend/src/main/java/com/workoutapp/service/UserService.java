@@ -1,6 +1,6 @@
 package com.workoutapp.service;
 
-import com.workoutapp.dto.ProfileDTO;
+import com.workoutapp.dto.UserDTO;
 import com.workoutapp.entity.User;
 import com.workoutapp.entity.WorkoutPlan;
 import com.workoutapp.repository.UserRepository;
@@ -10,10 +10,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class ProfileService {
+public class UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -23,40 +24,49 @@ public class ProfileService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    // Get the current user's profile
-    public ProfileDTO getProfile(String username) {
-        // Use Optional to safely handle the user retrieval
-        Optional<User> userOptional = userRepository.findByUsername(username);
-        User user = userOptional.orElseThrow(() -> new RuntimeException("User not found"));
-
-        // Get today's workout plan (assuming such logic exists in WorkoutPlanRepository)
-        WorkoutPlan todaysWorkout = workoutPlanRepository.findWorkoutPlanByUserUsernameAndDate(username, LocalDate.now()).orElse(null);
-
-        // Create ProfileDTO with current workout included
-        return new ProfileDTO(user.getId(), user.getUsername(), user.getEmail(), user.getName(), null, todaysWorkout);
+    
+    
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(UserDTO::new) // Map each User entity to a UserDTO
+                .collect(Collectors.toList());
     }
+    // Get the current user's profile
+    public UserDTO getUser(String username) {
+        // Retrieve user from repository
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Retrieve today's workout plan
+        WorkoutPlan todaysWorkout = workoutPlanRepository
+                .findWorkoutPlanByUserUsernameAndDate(username, LocalDate.now())
+                .orElse(null);
+
+        // Use the overloaded constructor to include the workout
+        return new UserDTO(user, todaysWorkout);
+    }
+
     
     // Update the user's profile
-    public ProfileDTO updateProfile(String username, ProfileDTO profileDTO) {
+    public UserDTO updateProfile(String username, UserDTO userDTO) {
         // Use Optional to safely retrieve the user
-        Optional<User> userOptional = userRepository.findByUsername(username);
-        User user = userOptional.orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         // Update the user object with new profile data
-        user.setName(profileDTO.getName());
-        user.setEmail(profileDTO.getEmail());
+        user.setName(userDTO.getName());
+        user.setEmail(userDTO.getEmail());
         
         // Encode and set the password only if provided
-        if (profileDTO.getPassword() != null && !profileDTO.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(profileDTO.getPassword()));
+        if (userDTO.getPassword() != null && !userDTO.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         }
 
         // Save the updated user object
         userRepository.save(user);
 
-        // Return the updated user as a ProfileDTO
-        return new ProfileDTO(user.getId(), user.getUsername(), user.getEmail(), user.getName(), null, null);
+        // Return the updated user as a UserDTO
+        return new UserDTO(user); // Assuming a matching constructor exists
     }
     
     // Delete the user by username

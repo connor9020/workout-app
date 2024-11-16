@@ -19,9 +19,11 @@ public class ExerciseController {
     // Get Exercises by workout type
     @GetMapping
     public ResponseEntity<List<Exercises>> getExercisesByWorkoutType(@RequestParam String workoutType) {
-        List<Exercises> Exercisess = ExercisesService.getExercisesByWorkoutType(workoutType);
-        return ResponseEntity.ok(Exercisess);
+        System.out.println("Received workoutType: " + workoutType);
+        List<Exercises> exercises = ExercisesService.getExercisesByWorkoutType(workoutType);
+        return ResponseEntity.ok(exercises);
     }
+
 
     // Add a new Exercises
     @PostMapping

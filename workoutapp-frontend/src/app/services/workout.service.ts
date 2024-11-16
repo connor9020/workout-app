@@ -15,8 +15,9 @@ export class WorkoutService {
     return this.http.get<WorkoutType[]>(`${this.apiUrl}/workout-types`);
   }
 
-  getExercisesByType(type: string) {
-    return this.http.get<any[]>(`/api/exercises?type=${type}`);
+  getExercisesByType(params: { workoutType: string }): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/exercises`, { params });
   }
+  
   
 }

@@ -3,7 +3,7 @@
 
 <div *ngIf="workoutTypes.length > 0" class="jumbotron text-center">
   <h4>Quick Workouts: Pick a type!</h4>
-  <div class="btn-group" role="group" aria-label="Workout types">
+  <div class="btn-group" role="group" aria-label="Workout Type">
     <button *ngFor="let workoutType of workoutTypes"
             class="btn btn-primary btn-lg mb-3 mx-2"
             (click)="getExercises(workoutType.typeName)">
@@ -23,3 +23,4 @@
 </div>
 
 <p>Think ahead! Schedule a long-term workout plan!</p>
+<p> reset JWT token by resending login API request and copying the token from the output</p>
