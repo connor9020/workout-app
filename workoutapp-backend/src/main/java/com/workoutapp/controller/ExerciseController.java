@@ -23,8 +23,15 @@ public class ExerciseController {
         List<Exercises> exercises = ExercisesService.getExercisesByWorkoutType(workoutType);
         return ResponseEntity.ok(exercises);
     }
-
-
+    
+    // Get all exercises
+    @GetMapping("/all")
+    public ResponseEntity<List<Exercises>> getAllExercises() {
+        List<Exercises> exercises = ExercisesService.getAllExercises();
+        return ResponseEntity.ok(exercises);
+    }
+    
+    
     // Add a new Exercises
     @PostMapping
     public ResponseEntity<Exercises> addExercises(@RequestBody Exercises Exercises) {

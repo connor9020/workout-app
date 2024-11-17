@@ -1,5 +1,7 @@
 package com.workoutapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +15,7 @@ public class Exercises {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "workout_type_id")
+    @JsonIgnore // Prevents serialization of the lazy-loaded field
     private WorkoutType workoutType; // Reference to the WorkoutType it belongs to
 
     // Getters and Setters
