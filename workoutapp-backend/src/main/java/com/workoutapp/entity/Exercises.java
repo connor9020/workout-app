@@ -1,25 +1,22 @@
 package com.workoutapp.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "exercises")
 public class Exercises {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(name = "exercise", nullable = false)
+    private String exercise;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "workout_type_id")
-    @JsonIgnore // Prevents serialization of the lazy-loaded field
-    private WorkoutType workoutType; // Reference to the WorkoutType it belongs to
+    @Column(name = "type", nullable = false)
+    private String type;
 
     // Getters and Setters
-
     public Long getId() {
         return id;
     }
@@ -28,19 +25,19 @@ public class Exercises {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getExercise() {
+        return exercise;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setExercise(String exercise) {
+        this.exercise = exercise;
     }
 
-    public WorkoutType getWorkoutType() {
-        return workoutType;
+    public String getType() {
+        return type;
     }
 
-    public void setWorkoutType(WorkoutType workoutType) {
-        this.workoutType = workoutType;
+    public void setType(String type) {
+        this.type = type;
     }
 }

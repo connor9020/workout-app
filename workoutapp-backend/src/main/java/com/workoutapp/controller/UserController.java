@@ -1,7 +1,6 @@
 package com.workoutapp.controller;
 
 import com.workoutapp.dto.UserDTO;
-import com.workoutapp.entity.WorkoutPlan;
 import com.workoutapp.service.UserService;
 import com.workoutapp.service.WorkoutPlanService;
 import org.springframework.http.ResponseEntity;
@@ -36,12 +35,12 @@ public class UserController {
         List<UserDTO> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
-    // Endpoint to get today's workout for a given username
-    @GetMapping("/todays-workout")
-    public WorkoutPlan getTodaysWorkout(@RequestParam String username) {
-        LocalDate today = LocalDate.now();
-        return workoutPlanService.getWorkoutPlanForDate(username, today);
-    }
+//    // Endpoint to get today's workout for a given username
+//    @GetMapping("/todays-workout")
+//    public WorkoutPlan getTodaysWorkout(@RequestParam String username) {
+//        LocalDate today = LocalDate.now();
+//        return workoutPlanService.getWorkoutPlanForDate(username, today);
+//    }
     
     // PUT request to update profile
     @PutMapping("/update")

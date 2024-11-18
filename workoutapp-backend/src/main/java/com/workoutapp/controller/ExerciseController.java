@@ -10,34 +10,34 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/exercises")
-@CrossOrigin(origins = "http://localhost:4200") // Adjust the frontend origin if necessary
 public class ExerciseController {
 
-    @Autowired
-    private ExercisesService ExercisesService;
+    private final ExercisesService exercisesService;
 
-    // Get Exercises by workout type
+    public ExerciseController(ExercisesService exercisesService) {
+        this.exercisesService = exercisesService;
+    }
+
     @GetMapping
-    public ResponseEntity<List<Exercises>> getExercisesByWorkoutType(@RequestParam String workoutType) {
-        System.out.println("Received workoutType: " + workoutType);
-        List<Exercises> exercises = ExercisesService.getExercisesByWorkoutType(workoutType);
-        return ResponseEntity.ok(exercises);
-    }
-    
-    // Get all exercises
-    @GetMapping("/all")
     public ResponseEntity<List<Exercises>> getAllExercises() {
-        List<Exercises> exercises = ExercisesService.getAllExercises();
-        return ResponseEntity.ok(exercises);
-    }
-    
-    
-    // Add a new Exercises
-    @PostMapping
-    public ResponseEntity<Exercises> addExercises(@RequestBody Exercises Exercises) {
-        Exercises savedExercises = ExercisesService.saveExercise(Exercises);
-        return ResponseEntity.ok(savedExercises);
+        return ResponseEntity.ok(exercisesService.getAllExercises());
     }
 
-    // Additional CRUD operations can be added as needed
+    @GetMapping("/by-type")
+    public ResponseEntity<List<Exercises>> getExercisesByType(@RequestParam String type) {
+        return ResponseEntity.ok(exercisesService.getExercisesByType(type));
+    }
+
+    @PostMapping
+    public ResponseEntity<Exercises> addExercise(@RequestBody Exercises exercise) {
+        return ResponseEntity.ok(exercisesService.saveExercise(exercise));
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteExercise(@PathVariable Long id) {
+        exercisesService.deleteExercise(id);
+        return ResponseEntity.ok("Exercise with ID " + id + " deleted successfully.");
+    }
+
 }
+

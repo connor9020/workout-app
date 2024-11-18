@@ -41,7 +41,7 @@ public class WorkoutPlanService {
     public WorkoutPlan updateWorkoutPlan(Long id, WorkoutPlan updatedPlan) {
         WorkoutPlan existingPlan = getWorkoutPlanById(id); // Ensure the plan exists
         existingPlan.setName(updatedPlan.getName());
-        existingPlan.setWorkoutType(updatedPlan.getWorkoutType());
+        //existingPlan.setWorkoutType(updatedPlan.getWorkoutType());
         existingPlan.setDate(updatedPlan.getDate());
         return workoutPlanRepository.save(existingPlan);
     }

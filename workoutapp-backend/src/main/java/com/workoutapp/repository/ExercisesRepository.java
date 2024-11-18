@@ -1,12 +1,15 @@
 package com.workoutapp.repository;
 
 import com.workoutapp.entity.Exercises;
-
+import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 public interface ExercisesRepository extends JpaRepository<Exercises, Long> {
-	List<Exercises> findByWorkoutType_TypeName(String typeName);
-
+    // Custom query to filter by type
+    List<Exercises> findByType(String type);
 }
+
+
+    
+ 
+

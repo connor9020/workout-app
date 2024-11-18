@@ -18,9 +18,6 @@ public class WorkoutPlan {
 
     private LocalDate date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "workout_type_id") // Direct association with WorkoutType
-    private WorkoutType workoutType;
 
     // Getters and Setters
 
@@ -56,11 +53,4 @@ public class WorkoutPlan {
         this.date = date;
     }
 
-    public WorkoutType getWorkoutType() {
-        return workoutType;
-    }
-
-    public void setWorkoutType(WorkoutType workoutType) {
-        this.workoutType = workoutType;
-    }
 }
