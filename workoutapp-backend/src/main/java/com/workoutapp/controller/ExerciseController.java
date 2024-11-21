@@ -18,7 +18,7 @@ public class ExerciseController {
         this.exercisesService = exercisesService;
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Exercises>> getAllExercises() {
         return ResponseEntity.ok(exercisesService.getAllExercises());
     }
@@ -26,6 +26,11 @@ public class ExerciseController {
     @GetMapping("/by-type")
     public ResponseEntity<List<Exercises>> getExercisesByType(@RequestParam String type) {
         return ResponseEntity.ok(exercisesService.getExercisesByType(type));
+    }
+    
+    @GetMapping("/types")
+    public List<String> getExerciseTypes() {
+        return exercisesService.getDistinctTypes();
     }
 
     @PostMapping

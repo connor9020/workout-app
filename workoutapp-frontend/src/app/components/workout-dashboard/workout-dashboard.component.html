@@ -6,8 +6,8 @@
   <div class="btn-group" role="group" aria-label="Workout Type">
     <button *ngFor="let workoutType of workoutTypes"
             class="btn btn-primary btn-lg mb-3 mx-2"
-            (click)="getExercises(workoutType.typeName)">
-      {{ workoutType.typeName }}
+            (click)="getExercises(workoutType)">
+      {{ workoutType}}
     </button>
   </div>
 </div>
@@ -17,10 +17,11 @@
   <h4>Exercises for {{ selectedWorkoutType }}</h4>
   <ul class="list-group">
     <li *ngFor="let exercise of exercises" class="list-group-item">
-      {{ exercise.exercise_name }}
+      {{ exercise.exercise }}
     </li>
   </ul>
 </div>
 
 <p>Think ahead! Schedule a long-term workout plan!</p>
 <p> reset JWT token by resending login API request and copying the token from the output</p>
+<p> next step is displaying exercise type buttons and their exercises</p>

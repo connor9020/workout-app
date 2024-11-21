@@ -22,6 +22,10 @@ public class ExercisesService {
     public List<Exercises> getExercisesByType(String type) {
         return exercisesRepository.findByType(type);
     }
+    
+    public List<String> getDistinctTypes() {
+        return exercisesRepository.findDistinctTypes();
+    }
 
     public Exercises saveExercise(Exercises exercise) {
         return exercisesRepository.save(exercise);
