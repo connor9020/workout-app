@@ -1,10 +1,10 @@
 .exercise-item {
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     text-align: center;
   }
   
   .exercise-image {
-    max-width: 100%;
+    max-width: 50%;
     height: auto;
     border-radius: 8px;
     margin-top: 10px;
