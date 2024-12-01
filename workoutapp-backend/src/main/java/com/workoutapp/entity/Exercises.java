@@ -16,6 +16,9 @@ public class Exercises {
     @Column(name = "type", nullable = false)
     private String type;
 
+    @Column(name = "image_url")  // New column for image URL
+    private String imageUrl;
+
     // Getters and Setters
     public Long getId() {
         return id;
@@ -40,4 +43,13 @@ public class Exercises {
     public void setType(String type) {
         this.type = type;
     }
+
+    public String getImageUrl() {  
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {  
+        this.imageUrl = imageUrl;
+    }
 }
+

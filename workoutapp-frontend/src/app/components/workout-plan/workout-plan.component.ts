@@ -14,18 +14,15 @@ export class WorkoutPlanComponent implements OnInit {
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit(): void {
-    // Get workout type from route parameters
+    // Get workout type from route parameters - allows dynamic additions to the quick workout list later
     this.workoutType = this.route.snapshot.paramMap.get('type');
   
     if (this.workoutType) {
-      console.log(`Fetching exercises for workout type: ${this.workoutType}`); // Debug: Log workout type
-  
+    
       // Fetch exercises for the workout type
-      this.http
-        .get<any[]>(`http://localhost:8080/api/exercises/${this.workoutType}`)
+      this.http.get<any[]>(`http://localhost:8080/api/exercises/${this.workoutType}`)
         .subscribe(
           (data) => {
-            console.log('Fetched exercises:', data); // Debug: Log API response
             this.exercises = data;
           },
           (error) => {

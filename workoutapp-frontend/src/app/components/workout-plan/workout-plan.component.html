@@ -1,16 +1,19 @@
 <div>
-    <h2>Workout Plan: {{ workoutType }}</h2>
-    <div *ngIf="exercises.length > 0; else noExercises">
-      <ul>
-        <li *ngFor="let exercise of exercises" class="list-group-item">
-          {{ exercise.exercise }}
-        </li>
-      </ul>
-    </div>
-    <ng-template #noExercises>
-      <p *ngIf="workoutType">No exercises available for workout type: {{ workoutType }}</p>
-      <p *ngIf="!workoutType">Invalid workout type. Please select a valid workout.</p>
-    </ng-template>
+  <h1>Workout Plan: {{ workoutType }}</h1>
+  <div *ngIf="exercises.length > 0; else noExercises">
+    <ul>
+      <li *ngFor="let exercise of exercises" class="exercise-item">
+        <h3>{{ exercise.exercise }}</h3>
+        <img [src]="exercise.image_url" [alt]="exercise.exercise" class="exercise-image" />
+      </li>
+    </ul>
   </div>
-  
-  <button class="btn btn-secondary" [routerLink]="['/dashboard']">Back to Dashboard</button>
+  <ng-template #noExercises>
+    <p *ngIf="workoutType">No exercises available for workout type: {{ workoutType }}</p>
+    <p *ngIf="!workoutType">Invalid workout type. Please select a valid workout.</p>
+  </ng-template>
+</div>
+
+<button class="btn btn-primary" [routerLink]="['/dashboard']">Workout History</button>
+<br><br>
+<button class="btn btn-secondary" [routerLink]="['/dashboard']">Back to Dashboard</button>

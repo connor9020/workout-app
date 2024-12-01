@@ -1,5 +1,6 @@
 <h3>Welcome to your Workout Dashboard!</h3>
-<p>Calendar for your workout plan this week</p>
+<br>
+
 
 <!-- Display a loading message while data is being fetched -->
 <div *ngIf="isLoading" class="text-center">
@@ -19,6 +20,7 @@
 </div>
 
 <p>Think ahead! Schedule a long-term workout plan!</p>
-
+<button class="btn btn-primary" [routerLink]="['/dashboard']">Custom Workout</button>
+<br><br>
 <button class="btn btn-secondary" [routerLink]="['/login']">Logout</button>
 
