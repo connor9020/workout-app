@@ -45,7 +45,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Allow all OPTIONS requests
                 .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()  // Allow login and register without authentication
-                .requestMatchers("/api/exercises").permitAll() // Allow access without authentication
+                .requestMatchers("/api/exercises", "/api/exercises/types").permitAll() // Allow access without authentication
                 .anyRequest().authenticated()  // All other endpoints require authentication
             )
             

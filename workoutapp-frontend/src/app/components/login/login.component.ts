@@ -17,7 +17,8 @@ export class LoginComponent {
       (response: string) => {
         console.log('Login successful!', response);
         const token = response.split(' ')[1];  // Extract the JWT from the "Bearer <token>" response
-        localStorage.setItem('auth-token', token);  // Store the token
+        localStorage.setItem('jwtToken', token); // Store the token
+
         this.router.navigate(['/dashboard']);  
       },
       error => {

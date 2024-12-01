@@ -24,11 +24,11 @@ public class ExerciseController {
         return ResponseEntity.ok(exercisesService.getAllExercises());
     }
 
-    @GetMapping("/by-type")
-    public ResponseEntity<List<Exercises>> getExercisesByType(@RequestParam String type) {
+    @GetMapping("/{type}")
+    public ResponseEntity<List<Exercises>> getExercisesByType(@PathVariable String type) {
         return ResponseEntity.ok(exercisesService.getExercisesByType(type));
     }
-    
+
     @GetMapping("/types")
     public List<String> getExerciseTypes() {
         return exercisesService.getDistinctTypes();

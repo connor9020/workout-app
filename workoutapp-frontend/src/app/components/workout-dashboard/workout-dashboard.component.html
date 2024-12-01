@@ -1,27 +1,24 @@
 <h3>Welcome to your Workout Dashboard!</h3>
 <p>Calendar for your workout plan this week</p>
 
-<div *ngIf="workoutTypes.length > 0" class="jumbotron text-center">
+<!-- Display a loading message while data is being fetched -->
+<div *ngIf="isLoading" class="text-center">
+  <p>Loading workout types...</p>
+</div>
+
+<!-- Display buttons once workoutTypes is loaded -->
+<div *ngIf="!isLoading && workoutTypes.length > 0" class="jumbotron text-center">
   <h4>Quick Workouts: Pick a type!</h4>
   <div class="btn-group" role="group" aria-label="Workout Type">
     <button *ngFor="let workoutType of workoutTypes"
             class="btn btn-primary btn-lg mb-3 mx-2"
-            (click)="getExercises(workoutType)">
-      {{ workoutType}}
+            [routerLink]="['/workout', workoutType]">
+      {{ workoutType }}
     </button>
   </div>
 </div>
 
-<!-- Display exercises for the selected workout type -->
-<div *ngIf="exercises.length > 0" class="exercise-list mt-4">
-  <h4>Exercises for {{ selectedWorkoutType }}</h4>
-  <ul class="list-group">
-    <li *ngFor="let exercise of exercises" class="list-group-item">
-      {{ exercise.exercise }}
-    </li>
-  </ul>
-</div>
-
 <p>Think ahead! Schedule a long-term workout plan!</p>
-<p> reset JWT token by resending login API request and copying the token from the output</p>
-<p> next step is displaying exercise type buttons and their exercises</p>
+
+<button class="btn btn-secondary" [routerLink]="['/login']">Logout</button>
+

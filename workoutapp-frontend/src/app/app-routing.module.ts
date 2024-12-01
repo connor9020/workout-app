@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'home', component: ProfileComponent },
   { path: 'dashboard', component: WorkoutDashboardComponent },
-  { path: 'workout-plan', component: WorkoutPlanComponent },
+  { path: 'workout/:type', component: WorkoutPlanComponent},
   { path: 'workout-type', component: WorkoutTypeComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },  // Redirect to login by default
 ];
