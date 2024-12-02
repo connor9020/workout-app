@@ -1,19 +1,114 @@
-<div>
-  <h1>Workout Plan: {{ workoutType }}</h1>
-  <div *ngIf="exercises.length > 0; else noExercises">
-    <ul>
-      <li *ngFor="let exercise of exercises" class="exercise-item">
-        <h3>{{ exercise.exercise }}</h3>
-        <img [src]="exercise.imageUrl" [alt]="exercise.exercise" class="exercise-image" />
+<div class="container">
+  <h1 class="text-center my-4">Workout Plan: {{ workoutType }}</h1>
+  <div class="text-center mt-4">
+  <button class="btn btn-secondary" [routerLink]="['/dashboard']">Back to Dashboard</button>
+  </div><br>
+  <!-- Exercise Summary Section -->
+  <div *ngIf="exercises.length > 0" class="mb-4">
+    <h4 class="text-center">Exercise List Summary</h4>
+    <ul class="list-group">
+      <li *ngFor="let exercise of exercises" class="list-group-item d-flex justify-content-between align-items-center">
+        {{ exercise.exercise }}
+        <span class="badge bg-primary rounded-pill">{{ exercise.type }}</span>
       </li>
     </ul>
   </div>
-  <ng-template #noExercises>
-    <p *ngIf="workoutType">No exercises available for workout type: {{ workoutType }}</p>
-    <p *ngIf="!workoutType">Invalid workout type. Please select a valid workout.</p>
-  </ng-template>
-</div>
 
-<button class="btn btn-primary" [routerLink]="['/dashboard']">Workout History</button>
-<br><br>
-<button class="btn btn-secondary" [routerLink]="['/dashboard']">Back to Dashboard</button>
+  <!-- Existing Form Section -->
+  <div *ngIf="exercises.length > 0; else noExercises">
+    <form (ngSubmit)="onSubmit()">
+      <div class="row gy-4">
+        <div *ngFor="let exercise of exercises; let i = index" class="col-md-6">
+          <div class="card">
+            <img [src]="exercise.imageUrl" [alt]="exercise.exercise" class="card-img-top exercise-image" />
+            <div class="card-body">
+              <h5 class="card-title">{{ exercise.exercise }}</h5>
+
+              <!-- Sets Form -->
+              <div *ngFor="let set of exerciseData[i].sets; let j = index" class="mb-3">
+                <h6>Set {{ j + 1 }}</h6>
+                <div class="row g-2">
+                  <div class="col-md-4">
+                    <label for="reps{{ i }}{{ j }}" class="form-label">Reps</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="reps{{ i }}{{ j }}"
+                      [(ngModel)]="exerciseData[i].sets[j].reps"
+                      name="reps{{ i }}{{ j }}"
+                      min="0"
+                      placeholder="Reps"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label for="weight{{ i }}{{ j }}" class="form-label">Weight (lbs)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="weight{{ i }}{{ j }}"
+                      [(ngModel)]="exerciseData[i].sets[j].weight"
+                      name="weight{{ i }}{{ j }}"
+                      min="0"
+                      placeholder="Weight"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label for="time{{ i }}{{ j }}" class="form-label">Time (min)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="time{{ i }}{{ j }}"
+                      [(ngModel)]="exerciseData[i].sets[j].time"
+                      name="time{{ i }}{{ j }}"
+                      min="0"
+                      placeholder="Time"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="text-end mt-2">
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm"
+                    (click)="removeSet(i, j)"
+                    *ngIf="exerciseData[i].sets.length > 1"
+                  >
+                    Remove Set
+                  </button>
+                </div>
+              </div>
+
+              <!-- Add Set Button -->
+              <div class="text-center mt-3">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm"
+                  (click)="addSet(i)"
+                >
+                  Add Another Set
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary btn-lg">Save Workout Data</button>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #noExercises>
+    <p class="text-center mt-5">No exercises available for workout type: {{ workoutType }}</p>
+  </ng-template>
+
+  <!-- Navigation Buttons -->
+  <div class="text-center mt-4">
+    <button class="btn btn-primary me-2" [routerLink]="['/dashboard']">Workout History</button>
+    <button class="btn btn-secondary" [routerLink]="['/dashboard']">Back to Dashboard</button>
+  </div>
+</div>
