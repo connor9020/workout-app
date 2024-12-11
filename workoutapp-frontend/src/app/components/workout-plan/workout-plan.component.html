@@ -1,7 +1,8 @@
 <div class="container">
   <h1 class="text-center my-4">Workout Plan: {{ workoutType }}</h1>
   <div class="text-center mt-4">
-  <button class="btn btn-secondary" [routerLink]="['/dashboard']">Back to Dashboard</button>
+    <button class="btn btn-secondary" [routerLink]="['/dashboard']">Back to Dashboard</button><br><br>
+    <button class="btn btn-primary me-2" [routerLink]="['/dashboard']">{{ workoutType }} Workout History</button>
   </div><br>
   <!-- Exercise Summary Section -->
   <div *ngIf="exercises.length > 0" class="mb-4">
@@ -108,7 +109,7 @@
 
   <!-- Navigation Buttons -->
   <div class="text-center mt-4">
-    <button class="btn btn-primary me-2" [routerLink]="['/dashboard']">Workout History</button>
+    <button class="btn btn-primary me-2" [routerLink]="['/dashboard']">{{ workoutType }} Workout History</button>
     <button class="btn btn-secondary" [routerLink]="['/dashboard']">Back to Dashboard</button>
   </div>
 </div>
